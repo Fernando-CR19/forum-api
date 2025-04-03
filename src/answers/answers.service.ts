@@ -8,14 +8,14 @@ export class AnswersService {
   @Inject()
   private readonly prisma: PrismaService
 
-  create(createAnswerDto: CreateAnswerDto, userId: number, questionId: number) {
+  create(createAnswerDto: CreateAnswerDto, userId: any, questionsId: number) {
     const newAnswer = {
       body: createAnswerDto.body,
       user: {
-        connect: { id: userId },
+        connect: { id: userId.sub },
       },
       question: {
-        connect: { id: questionId },
+        connect: { id: questionsId },
       },
     };
     return this.prisma.answers.create({
