@@ -17,7 +17,7 @@ export class UserController {
 
     @UseGuards(AuthGuard)
     @Get(':id')
-    async getUser(@Param('id') id: string): Promise<UserModel> {
+    async getUser(@Param('id') id: string): Promise<Omit<UserModel, 'password'>> {
         const user = await this.userService.user({ id: Number(id) });
         if (!user) {
             throw new NotFoundException(`User with ID ${id} not found`);
